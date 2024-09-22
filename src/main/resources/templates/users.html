@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div>
+  <table>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+      }
+    </style>
+    <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Things</th>
+    </thead>
+    <tr th:each="user: ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.username}"></td>
+<!--      <td th:text="${user.roles}"></td>-->
+      <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
+      <td th:each="thing : ${user.things}" th:text="${thing.name}"></td>
+<!--      <td>-->
+<!--        <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="delete">-->
+<!--          <input type="submit" value="delete" />-->
+<!--        </form>-->
+<!--      </td>-->
+    </tr>
+  </table>
+</div>
+</body>
+</html>

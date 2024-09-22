@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <table>
+            <style>
+                table, th, td {
+                    border: 1px solid black;
+                }
+            </style>
+            <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Wrnt</th>
+            <th>Owner</th>
+            </thead>
+            <tr th:each="thing: ${things}">
+                <td th:text="${thing.id}"></td>
+                <td th:text="${thing.name}"></td>
+                <td th:text="${thing.description}"></td>
+                <td th:text="${thing.wrnt}"></td>
+                <td th:text="${thing.thingUser}"></td>
+                <td>
+                    <form th:action="@{/thing/delete/{id}(id=${thing.id})}" method="post">
+                        <input type="submit" value="delete" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

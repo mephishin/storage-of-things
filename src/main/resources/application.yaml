@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: storage-of-things
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create

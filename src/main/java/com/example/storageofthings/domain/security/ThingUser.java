@@ -7,8 +7,10 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -61,5 +63,10 @@ public class ThingUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("[username={0}, roles={1}]", username, roles.stream().map(Role::toString).toList());
     }
 }

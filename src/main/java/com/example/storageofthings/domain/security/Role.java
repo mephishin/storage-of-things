@@ -9,6 +9,8 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.text.MessageFormat;
+
 @Entity
 @Getter
 @Setter
@@ -25,5 +27,10 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("[name={0}]", name);
     }
 }

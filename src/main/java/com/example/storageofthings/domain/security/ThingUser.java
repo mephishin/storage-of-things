@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter

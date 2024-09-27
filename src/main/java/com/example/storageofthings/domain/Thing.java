@@ -23,6 +23,8 @@ public class Thing {
     private String wrnt;
     @ManyToMany(mappedBy = "things")
     private Set<ThingUser> thingUser;
+    @OneToOne(mappedBy = "thing")
+    private Place place;
 //
 //    @Override
 //    public String toString() {

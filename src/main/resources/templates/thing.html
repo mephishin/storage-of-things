@@ -24,7 +24,7 @@
                 <td th:text="${thing.name}"></td>
                 <td th:text="${thing.description}"></td>
                 <td th:text="${thing.wrnt}"></td>
-                <td th:text="${thing.thingUser}"></td>
+                <td th:each="thingUser : ${thing.thingUser}" th:text="${thingUser.username}"></td>
                 <td>
                     <form th:action="@{/thing/delete/{id}(id=${thing.id})}" method="post">
                         <input type="submit" value="delete" />

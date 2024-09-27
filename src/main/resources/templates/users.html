@@ -23,8 +23,8 @@
       <td th:text="${user.id}"></td>
       <td th:text="${user.username}"></td>
       <td>*******</td>
-      <td th:text="${user.roles}"></td>
-      <td th:text="${user.things}"></td>
+      <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
+      <td th:each="thing : ${user.things}" th:text="${thing.name}"></td>
 <!--      <td>-->
 <!--        <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="delete">-->
 <!--          <input type="submit" value="delete" />-->
@@ -44,13 +44,13 @@
           <input type="password" name="password" placeholder="Password"/>
         </td>
         <td>
-          <select th:field="*{roles}">
-            <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+          <select th:field="*{roles}" multiple="multiple">
+            <option th:each="role : ${roles}" th:value="${{role.id}}" th:text="${role.name}"></option>
           </select>
         </td>
         <td>
-          <select th:field="*{things}">
-            <option th:each="thing : ${things}" th:value="${thing}" th:text="${thing}"></option>
+          <select th:field="*{things}" multiple="multiple">
+            <option th:each="thing : ${things}" th:value="${thing.id}" th:text="${thing.name}"></option>
           </select>
         </td>
         <td>

@@ -28,9 +28,9 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
-
-    @Override
-    public String toString() {
-        return MessageFormat.format("[name={0}]", name);
-    }
+//
+//    @Override
+//    public String toString() {
+//        return MessageFormat.format("[name={0}]", name);
+//    }
 }

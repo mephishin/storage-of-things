@@ -23,9 +23,9 @@ public class Thing {
     private String wrnt;
     @ManyToMany(mappedBy = "things")
     private Set<ThingUser> thingUser;
-
-    @Override
-    public String toString() {
-        return MessageFormat.format("[name={0}, thingUser={1}]", name, thingUser.stream().map(ThingUser::getUsername).toList());
-    }
+//
+//    @Override
+//    public String toString() {
+//        return MessageFormat.format("[name={0}, thingUser={1}]", name, thingUser.stream().map(ThingUser::getUsername).toList());
+//    }
 }

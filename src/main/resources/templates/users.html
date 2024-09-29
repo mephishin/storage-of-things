@@ -5,60 +5,61 @@
   <title>Title</title>
 </head>
 <body>
-<div>
-  <table>
-    <style>
-      table, th, td {
-        border: 1px solid black;
-      }
-    </style>
-    <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Password</th>
-    <th>Roles</th>
-    <th>Things</th>
-    </thead>
-    <tr th:each="user: ${users}">
-      <td th:text="${user.id}"></td>
-      <td th:text="${user.username}"></td>
-      <td>*******</td>
-      <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
-      <td th:each="thing : ${user.things}" th:text="${thing.name}"></td>
-<!--      <td>-->
-<!--        <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="delete">-->
-<!--          <input type="submit" value="delete" />-->
-<!--        </form>-->
-<!--      </td>-->
+  <h1>Users</h1>
+  <div>
+    <table>
+      <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+      </style>
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Password</th>
+      <th>Roles</th>
+      <th>Things</th>
+      </thead>
+      <tr th:each="user: ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td>*******</td>
+        <td th:each="role : ${user.roles}" th:text="${role.name}"></td>
+        <td th:each="thing : ${user.things}" th:text="${thing.name}"></td>
+  <!--      <td>-->
+  <!--        <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="delete">-->
+  <!--          <input type="submit" value="delete" />-->
+  <!--        </form>-->
+  <!--      </td>-->
 
-    </tr>
-    <tr>
-      <form th:action="@{/admin/user/add}" method="post" th:object="${new_user}">
-        <td>
-          *******
-        </td>
-        <td>
-          <input type="text" name="username" placeholder="Username"/>
-        </td>
-        <td>
-          <input type="password" name="password" placeholder="Password"/>
-        </td>
-        <td>
-          <select th:field="*{roles}">
-            <option th:each="role : ${roles}" th:value="${{role.id}}" th:text="${role.name}"></option>
-          </select>
-        </td>
-        <td>
-          <select th:field="*{things}">
-            <option th:each="thing : ${things}" th:value="${thing.id}" th:text="${thing.name}"></option>
-          </select>
-        </td>
-        <td>
-          <input type="submit" value="Add" />
-        </td>
-      </form>
-    </tr>
-  </table>
-</div>
+      </tr>
+      <tr>
+        <form th:action="@{/admin/user/add}" method="post" th:object="${new_user}">
+          <td>
+            *******
+          </td>
+          <td>
+            <input type="text" name="username" placeholder="Username"/>
+          </td>
+          <td>
+            <input type="password" name="password" placeholder="Password"/>
+          </td>
+          <td>
+            <select th:field="*{roles}">
+              <option th:each="role : ${roles}" th:value="${{role.id}}" th:text="${role.name}"></option>
+            </select>
+          </td>
+          <td>
+            <select th:field="*{things}">
+              <option th:each="thing : ${things}" th:value="${thing.id}" th:text="${thing.name}"></option>
+            </select>
+          </td>
+          <td>
+            <input type="submit" value="Add" />
+          </td>
+        </form>
+      </tr>
+    </table>
+  </div>
 </body>
 </html>

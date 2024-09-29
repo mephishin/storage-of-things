@@ -22,6 +22,7 @@ public class InitConfig {
     private final PlaceJpaRepo placeJpaRepo;
     private final UserJpaRepo userJpaRepo;
     private final RoleJpaRepo roleJpaRepo;
+    private final ThingJpaRepo thingJpaRepo;
 
     @Bean
     InitializingBean initRoles() {
@@ -66,12 +67,30 @@ public class InitConfig {
     @Bean
     InitializingBean initPlace() {
         return () -> {
+            var firstThing = thingJpaRepo.findById(1L).orElseThrow();
             placeJpaRepo.save(
                     new Place()
                             .setWork(false)
                             .setRepair(false)
                             .setName("box")
                             .setDescription("big box with something in")
+                            .setThing(firstThing)
+            );
+            var secondThing = thingJpaRepo.findById(2L).orElseThrow();
+            placeJpaRepo.save(
+                    new Place()
+                            .setWork(false)
+                            .setRepair(false)
+                            .setName("bag")
+                            .setDescription("woman tout bag")
+                            .setThing(secondThing)
+            );
+            placeJpaRepo.save(
+                    new Place()
+                            .setWork(false)
+                            .setRepair(false)
+                            .setName("backpack")
+                            .setDescription("woman tout bag")
             );
         };
     }

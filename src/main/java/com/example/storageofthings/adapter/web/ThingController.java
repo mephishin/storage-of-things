@@ -1,9 +1,7 @@
 package com.example.storageofthings.adapter.web;
 
 import com.example.storageofthings.app.place.GetAllEmptyPlaces;
-import com.example.storageofthings.app.thing.FindThingsByThingUserService;
-import com.example.storageofthings.app.thing.ThingDeleteService;
-import com.example.storageofthings.app.thing.TransferThingToUserService;
+import com.example.storageofthings.app.thing.*;
 import com.example.storageofthings.app.user.GetAllUsersExceptAuthenticated;
 import com.example.storageofthings.domain.Thing;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ public class ThingController {
     private final ThingDeleteService thingDeleteService;
     private final TransferThingToUserService transferThingToUserService;
     private final GetAllEmptyPlaces getAllEmptyPlaces;
-
+    private final AddThingService addThingService;
 
     @GetMapping("/my")
     public String thing(Model model, Authentication authentication) {
@@ -43,8 +41,8 @@ public class ThingController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteThing(@PathVariable Long id) {
-        thingDeleteService.deleteThing(id);
+    public String deleteThing(@PathVariable Long id, Authentication authentication) {
+        thingDeleteService.deleteThing(id, authentication.getName());
         return "redirect:/thing/my";
     }
 
@@ -54,6 +52,12 @@ public class ThingController {
             Authentication authentication,
             @RequestParam("receiver") Long receiver) {
         transferThingToUserService.transfer(receiver, id, authentication.getName());
+        return "redirect:/thing/my";
+    }
+
+    @PostMapping("/add")
+    public String addThing(@ModelAttribute("new_thing") Thing thing, Authentication authentication) {
+        addThingService.add(thing, authentication.getName());
         return "redirect:/thing/my";
     }
 }

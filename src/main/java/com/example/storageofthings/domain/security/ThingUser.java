@@ -64,8 +64,8 @@ public class ThingUser implements UserDetails {
         return UserDetails.super.isEnabled();
     }
 
-//    @Override
-//    public String toString() {
-//        return MessageFormat.format("[username={0}, roles={1}]", username, roles.stream().map(Role::toString).toList());
-//    }
+    @Override
+    public String toString() {
+        return MessageFormat.format("[username={0}]", username);
+    }
 }

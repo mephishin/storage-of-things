@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>Places</h1>
+  <a th:href="@{/thing/my}" th:method="GET">My things</a>
+  <div>
+    <table>
+      <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+      </style>
+      <thead>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Repair</th>
+      <th>Work</th>
+      <th>Thing<th/>
+      </thead>
+      <tr th:each="place : ${places}">
+        <td th:text="${place.id}"></td>
+        <td th:text="${place.name}"></td>
+        <td th:text="${place.description}"></td>
+        <td th:text="${place.repair}"></td>
+        <td th:text="${place.work}"></td>
+<!--        <td th:text="${place.thing.name}"></td>-->
+      </tr>
+      <tr>
+        <form th:action="@{/place/add}" method="post" th:object="${new_place}">
+          <td></td>
+          <td>
+            <input type="text" name="name" placeholder="name"/>
+          </td>
+          <td>
+            <input type="text" name="description" placeholder="description"/>
+          </td>
+          <td>
+            <input type="text" name="rapair" placeholder="repair"/>
+          </td>
+          <td>
+            <input type="text" name="work" placeholder="work"/>
+          </td>
+          <td>
+            <input type="submit" value="Add" />
+          </td>
+        </form>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

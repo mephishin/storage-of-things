@@ -90,7 +90,7 @@ public class InitConfig {
                             .setWork(false)
                             .setRepair(false)
                             .setName("backpack")
-                            .setDescription("woman tout bag")
+                            .setDescription("medium bag for laptop")
             );
         };
     }

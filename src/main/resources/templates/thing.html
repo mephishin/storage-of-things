@@ -17,19 +17,54 @@
             <th>Name</th>
             <th>Description</th>
             <th>Wrnt</th>
-            <th>Owner</th>
+            <th>Place</th>
+<!--            <th>Owner</th>-->
             </thead>
             <tr th:each="thing: ${things}">
                 <td th:text="${thing.id}"></td>
                 <td th:text="${thing.name}"></td>
                 <td th:text="${thing.description}"></td>
                 <td th:text="${thing.wrnt}"></td>
-                <td th:each="thingUser : ${thing.thingUser}" th:text="${thingUser.username}"></td>
+                <td th:text="${thing.place}"></td>
+
+                <!--                <td th:each="thingUser : ${thing.thingUser}" th:text="${thingUser.username}"></td>-->
                 <td>
                     <form th:action="@{/thing/delete/{id}(id=${thing.id})}" method="post">
                         <input type="submit" value="delete" />
                     </form>
                 </td>
+                <td>
+                    <form th:action="@{/thing/transfer/{id}(id=${thing.id})}" method="post">
+                        <select name="receiver">
+                            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+                        </select>
+                        <input type="submit" value="transfer" />
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <form th:action="@{/thing/add}" method="post" th:object="${new_thing}">
+                    <td>
+                        ******
+                    </td>
+                    <td>
+                        <input type="text" name="name" placeholder="name"/>
+                    </td>
+                    <td>
+                        <input type="text" name="description" placeholder="description"/>
+                    </td>
+                    <td>
+                        <input type="text" name="wrnt" placeholder="warranty"/>
+                    </td>
+                    <td>
+                        <select>
+                            <option th:each="place : ${places}" th:value="${place.id}" th:text="${place.name}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="Add" />
+                    </td>
+                </form>
             </tr>
         </table>
     </div>

@@ -1,6 +1,6 @@
 package com.example.storageofthings.fw;
 
-import com.example.storageofthings.app.user.UserLoadingService;
+import com.example.storageofthings.app.user.GetUserByUsernameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +22,11 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(
         HttpSecurity httpSecurity,
-        UserLoadingService userLoadingService
+        GetUserByUsernameService getUserByUsernameService
     ) throws Exception {
         var builder = httpSecurity
             .getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userLoadingService);
+        builder.userDetailsService(getUserByUsernameService);
         return builder.build();
     }
 
@@ -37,8 +37,9 @@ public class SecurityConfig {
         httpSecurity
             .authorizeHttpRequests(requestMatcherRegistry ->
                 requestMatcherRegistry
-                    .requestMatchers("/registration/**").not().fullyAuthenticated()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/registration/**").not().fullyAuthenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/").permitAll()
             );
         httpSecurity
             .authorizeHttpRequests(requestMatcherRegistry ->
@@ -46,16 +47,17 @@ public class SecurityConfig {
         httpSecurity
             .formLogin(formLogin ->
                 formLogin
-                    .loginPage("/login")
-                    .permitAll()
-                    .defaultSuccessUrl("/thing")
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/thing/my")
+                        .permitAll()
+
             );
         httpSecurity
             .logout(
                 logout ->
                     logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login")
                         .permitAll()
             );
         return httpSecurity.build();

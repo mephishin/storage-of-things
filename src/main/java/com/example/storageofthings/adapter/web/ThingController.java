@@ -1,29 +1,43 @@
 package com.example.storageofthings.adapter.web;
 
-import com.example.storageofthings.adapter.persistence.ThingJpaRepo;
+import com.example.storageofthings.app.place.GetAllEmptyPlaces;
+import com.example.storageofthings.app.thing.FindThingsByThingUserService;
 import com.example.storageofthings.app.thing.ThingDeleteService;
+import com.example.storageofthings.app.thing.TransferThingToUserService;
+import com.example.storageofthings.app.user.GetAllUsersExceptAuthenticated;
+import com.example.storageofthings.domain.Thing;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/thing")
 public class ThingController {
-
-    private final ThingJpaRepo thingJpaRepo;
+    private final FindThingsByThingUserService findThingsByThingUserService;
+    private final GetAllUsersExceptAuthenticated getAllUsersExceptAuthenticated;
     private final ThingDeleteService thingDeleteService;
+    private final TransferThingToUserService transferThingToUserService;
+    private final GetAllEmptyPlaces getAllEmptyPlaces;
 
-    @GetMapping()
-    public String thing(Model model) {
-        var things = thingJpaRepo.findAll();
+
+    @GetMapping("/my")
+    public String thing(Model model, Authentication authentication) {
+        model.addAttribute("new_thing", new Thing());
+
+        var places = getAllEmptyPlaces.get();
+        model.addAttribute("places", places);
+
+        var things = findThingsByThingUserService.find(authentication.getName());
         model.addAttribute("things", things);
+
+        var users = getAllUsersExceptAuthenticated.get(authentication.getName());
+        model.addAttribute("users", users);
+
         log.info("Get things from db: " + things);
         return "thing";
     }
@@ -31,6 +45,15 @@ public class ThingController {
     @PostMapping("/delete/{id}")
     public String deleteThing(@PathVariable Long id) {
         thingDeleteService.deleteThing(id);
-        return "redirect:/thing";
+        return "redirect:/thing/my";
+    }
+
+    @PostMapping("/transfer/{id}")
+    public String transferThing(
+            @PathVariable Long id,
+            Authentication authentication,
+            @RequestParam("receiver") Long receiver) {
+        transferThingToUserService.transfer(receiver, id, authentication.getName());
+        return "redirect:/thing/my";
     }
 }

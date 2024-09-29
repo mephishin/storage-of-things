@@ -12,15 +12,15 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class UserSavingService {
+public class SaveUserService {
     private final UserJpaRepo userJpaRepo;
     private final RoleJpaRepo roleJpaRepo;
-    private final UserLoadingService userLoadingService;
+    private final GetUserByUsernameService getUserByUsernameService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void saveUser(ThingUser user) {
         try {
-            userLoadingService.loadUserByUsername(user.getUsername());
+            getUserByUsernameService.loadUserByUsername(user.getUsername());
 
             throw new IllegalArgumentException("User with name: " + user.getUsername() + " already existed");
         } catch (UsernameNotFoundException e) {

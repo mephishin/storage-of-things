@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDeleteService {
+public class DeleteUserByIdService {
     private final UserJpaRepo userJpaRepo;
 }

@@ -1,6 +1,6 @@
 package com.example.storageofthings.adapter.web.security;
 
-import com.example.storageofthings.app.user.UserSavingService;
+import com.example.storageofthings.app.user.SaveUserService;
 import com.example.storageofthings.domain.security.ThingUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/registration")
 @RequiredArgsConstructor
 public class RegistrationController {
-    private final UserSavingService userSavingService;
+    private final SaveUserService saveUserService;
 
     @GetMapping()
     public String registration(Model model) {
@@ -31,7 +31,7 @@ public class RegistrationController {
             return "registration";
         }
         try {
-            userSavingService.saveUser(userForm);
+            saveUserService.saveUser(userForm);
         } catch (IllegalArgumentException e) {
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";

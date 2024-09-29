@@ -14,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Accessors(chain = true)
+@EqualsAndHashCode
 public class Thing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

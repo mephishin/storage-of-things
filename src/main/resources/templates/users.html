@@ -44,12 +44,12 @@
           <input type="password" name="password" placeholder="Password"/>
         </td>
         <td>
-          <select th:field="*{roles}" multiple="multiple">
+          <select th:field="*{roles}">
             <option th:each="role : ${roles}" th:value="${{role.id}}" th:text="${role.name}"></option>
           </select>
         </td>
         <td>
-          <select th:field="*{things}" multiple="multiple">
+          <select th:field="*{things}">
             <option th:each="thing : ${things}" th:value="${thing.id}" th:text="${thing.name}"></option>
           </select>
         </td>
